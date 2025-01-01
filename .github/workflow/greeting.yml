@@ -3,8 +3,10 @@ on: push
 
 jobs:
     greet:
-        runs-ou: ubuntu-latest
+        runs-on: ubuntu-latest
         steps:
             - name: Checkout code
               run: echo "Hello world!"
+
+
 
