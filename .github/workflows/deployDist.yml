@@ -1,14 +1,36 @@
 # This is a GitHub Actions workflow configuration file. It defines a workflow named "deploy Dist" that will run when there is a push event or when manually triggered using the workflow_dispatch event.
 name: deploy Dist
-on: [push,workflow_dispatch]
+on: [push, workflow_dispatch]
 jobs:
     test:
         runs-on: ubuntu-latest
         steps:
-            - name: "get code"
-              run: |
-                echo "cloning repo..!"
-                echo "demo testing"
-                echo "${{toJson(github)}}"
-                git clone https://github.com/${{github.repository}}.git
+            - name: "Get Code"
+              uses: actions/checkout@v4
+            
+            - name: Install Node 20
+              uses: actions/checkout@v4
+              with:
+                node-version: 20
+
+            - name: print node version
+              run: node -v
+              
+            - name: Install Dependancies
+              run: npm ci
+            
+            - name: Run Tests
+              run: npm run test
+
+
+
+
+
+
+            
+            #   run: |
+            #     echo "cloning repo..!"
+            #     echo "demo testing"
+            #     echo "${{toJson(github)}}"
+            #     git clone https://github.com/${{github.repository}}.git
 
