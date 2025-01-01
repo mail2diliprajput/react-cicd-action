@@ -1,0 +1,10 @@
+name: Greetring
+on: push
+
+jobs:
+    greet:
+        runs-ou: ubuntu-latest
+        steps:
+            - name: Checkout code
+              run: echo "Hello world!"
+
