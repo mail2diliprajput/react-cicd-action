@@ -2,9 +2,12 @@
 name: deploy Dist
 on: 
   workflow_dispatch:
-  push:
-    branches:
-      - main  
+    inputs:
+      dist:
+        description: 'Select the distribution to deploy'
+        required: true
+        push: [workflow_dispatch]
+          branches: [ main ]
   
 jobs:
     test:
