@@ -1,10 +1,13 @@
 # This is a GitHub Actions workflow configuration file. It defines a workflow named "deploy Dist" that will run when there is a push event or when manually triggered using the workflow_dispatch event.
 name: deploy Dist
 on:
-  push:
-    branches:
-    - main
   workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch to deploy'
+        required: true
+        default: 'main'  # Default branch if not specified
+        type: string
 
   
 jobs:
