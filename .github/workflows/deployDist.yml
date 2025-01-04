@@ -7,7 +7,6 @@ on:
         description: 'Branch to deploy'
         required: true
         default: 'main'  # Default branch if not specified
-        type: string
 
   
 jobs:
