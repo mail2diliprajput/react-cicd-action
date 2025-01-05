@@ -24,7 +24,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   test:
+        needs: sonarqube
         runs-on: ubuntu-latest
+
         steps:
             - name: "Get Code"
               uses: actions/checkout@v4
@@ -44,7 +46,7 @@ jobs:
             - name: Run Tests
               run: npm run test
   build:
-          needs: test
+          needs: [sonarqube, test]
           runs-on: ubuntu-latest
           steps:
             - name: "Get Code"
@@ -76,6 +78,7 @@ jobs:
                 name: github-pages
                 path: dist
   deploy:
+        needs: [sonarqube, build]
         runs-on: ubuntu-latest
         permissions:
           pages: write      # to deploy to Pages
