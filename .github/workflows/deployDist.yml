@@ -6,7 +6,7 @@ on:
       - main
       - 'feature/**'
     paths-ignore:
-      - '.github/workflows/*'
+      # - '.github/workflows/*'
       - README.md
   workflow_dispatch:
 
@@ -53,7 +53,7 @@ jobs:
                 echo "This is a test file" > dist/index.html
             - name: verify  dist folder 
               run: | 
-                ls - al dist
+                ls -al dist
                 
             - name: Install Dependencies
               run: npm ci
