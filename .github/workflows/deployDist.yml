@@ -3,7 +3,7 @@ name: deploy Dist
 on:
   push:
     branches:
-      - main  # edit accodiung to your code branch code executre`
+      - main # here change branch acording to devloper deploy code which branch
 
   
 jobs:
