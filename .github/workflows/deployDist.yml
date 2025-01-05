@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - 'feature/**'
+      - testing
     paths-ignore:
       - '.github/workflows/*'
       - README.md
