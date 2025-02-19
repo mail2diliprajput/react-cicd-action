@@ -78,7 +78,7 @@ jobs:
     name: Deploy to GitHub Pages
     runs-on: ubuntu-latest
     needs: build  # Make sure build job is completed before deploying
-    if: ${{ github.event_name == 'workflow_dispatch' }}  # Run only when manually triggered
+    #if: ${{ github.event_name == 'workflow_dispatch' }}  # Run only when manually triggered
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
