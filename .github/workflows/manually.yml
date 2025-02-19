@@ -1,15 +1,5 @@
-name: Manual Trigger Workflow
-
-# Configure Manual Trigger
-on:
-  workflow_dispatch:
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-
 name: Manual Trigger Workflow with loglevel & tags
-#get log & tags information
+
 on:
   workflow_dispatch:
     inputs:
@@ -23,10 +13,15 @@ on:
           - debug
           - warning
           - critical
+      tags:
+        description: 'Tags for the run'
+        required: true
+        default: 'example_tag'
+        type: string
 
 jobs:
   print-tag:
     runs-on: ubuntu-latest
     steps:
       - name: Print the purpose of run
-        run: echo  ${{ inputs.tags }} purpose
+        run: echo "Purpose: ${{ inputs.tags }}"
