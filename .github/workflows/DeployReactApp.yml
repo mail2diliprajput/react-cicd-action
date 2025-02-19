@@ -83,6 +83,7 @@ jobs:
       pages: write
       id-token: write
       issues: write
+    timeout-minutes: 1
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
