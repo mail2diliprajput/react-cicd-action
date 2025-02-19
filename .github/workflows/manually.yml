@@ -23,10 +23,6 @@ on:
           - debug
           - warning
           - critical
-      tags:
-        description: 'Purpose of Run This Workflow?'
-        required: true
-        type: string
 
 jobs:
   print-tag:
