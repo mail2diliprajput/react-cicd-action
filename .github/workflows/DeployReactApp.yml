@@ -1,5 +1,4 @@
-# This is a GitHub Actions workflow configuration file. It defines a workflow named "deploy Dist" that will run when there is a push event or when manually triggered using the workflow_dispatch event.
-name: Deploy React to github pages
+name: Deploy React to GitHub Pages
 on:
   push:
     branches:
@@ -14,11 +13,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+          fetch-depth: 0
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v4
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
   test:
@@ -44,7 +43,6 @@ jobs:
   build:
     needs: [sonarqube, test]
     runs-on: ubuntu-latest
-    
     steps:
       - name: "Get Code"
         uses: actions/checkout@v4
@@ -69,7 +67,7 @@ jobs:
       - name: Build Project
         run: npm run build
       - name: Upload Disk Artifact
-        uses: actions/upload-pages-artifact@v3  # actions/upload-artifact@v4
+        uses: actions/upload-pages-artifact@v3
         with:
           name: github-pages
           path: dist
@@ -78,17 +76,17 @@ jobs:
     needs: build
     name: Manual Approval
     runs-on: ubuntu-latest
-    environment: Production
+    environment:
+      name: Production
+      url: ${{ steps.deployment.outputs.page_url }}
     permissions:
       pages: write
       id-token: write
-      issues: write
     timeout-minutes: 1
     steps:
       - name: Wait for approval
-        uses: actions/approval-action@v1
-        with:
-          timeout: 60
+        run: echo "Waiting for manual approval"
+        timeout-minutes: 1
       - name: Checkout code
         if: success()
         uses: actions/checkout@v4
@@ -98,6 +96,152 @@ jobs:
         uses: actions/deploy-pages@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# # This is a GitHub Actions workflow configuration file. It defines a workflow named "deploy Dist" that will run when there is a push event or when manually triggered using the workflow_dispatch event.
+# name: Deploy React to github pages
+# on:
+#   push:
+#     branches:
+#       - main
+#       - 'feature/**'
+#   workflow_dispatch:
+
+# jobs:
+#   sonarqube:
+#     name: SonarQube
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v4
+#         with:
+#           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+#       - name: SonarQube Scan
+#         uses: SonarSource/sonarqube-scan-action@v4
+#         env:
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+#           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+#   test:
+#     needs: sonarqube
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: "Get Code"
+#         uses: actions/checkout@v4
+#       - name: Install Node 20
+#         uses: actions/setup-node@v4
+#         with:
+#           node-version: 20
+#       - name: Cache Dependencies
+#         uses: actions/cache@v4
+#         with:
+#           path: ~/.npm
+#           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+#       - name: Install Dependencies
+#         run: npm ci
+#       - name: Run Tests
+#         run: npm run test
+
+#   build:
+#     needs: [sonarqube, test]
+#     runs-on: ubuntu-latest
+    
+#     steps:
+#       - name: "Get Code"
+#         uses: actions/checkout@v4
+#       - name: Install Node 20
+#         uses: actions/setup-node@v4
+#         with:
+#           node-version: 20
+#       - name: Cache Dependencies
+#         uses: actions/cache@v4
+#         with:
+#           path: ~/.npm
+#           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+#       - name: create dist folder and add a test file
+#         run: |
+#           mkdir -p dist
+#           echo "This is a test file" > dist/index.html
+#       - name: verify dist folder
+#         run: |
+#           ls -al dist
+#       - name: Install Dependencies
+#         run: npm ci
+#       - name: Build Project
+#         run: npm run build
+#       - name: Upload Disk Artifact
+#         uses: actions/upload-pages-artifact@v3  # actions/upload-artifact@v4
+#         with:
+#           name: github-pages
+#           path: dist
+
+#   deploy:
+#     needs: build
+#     name: Manual Approval
+#     runs-on: ubuntu-latest
+#     environment: Production
+#     permissions:
+#       pages: write
+#       id-token: write
+#       issues: write
+#     timeout-minutes: 1
+#     steps:
+#       - name: Wait for approval
+#         uses: actions/approval-action@v1
+#         with:
+#           timeout: 60
+#       - name: Checkout code
+#         if: success()
+#         uses: actions/checkout@v4
+#       - name: Deploy to GitHub Pages
+#         if: success()
+#         id: deployment
+#         uses: actions/deploy-pages@v4
+#         with:
+#           token: ${{ secrets.GITHUB_TOKEN }}
     
 # steps:
 #       - name: Checkout code
