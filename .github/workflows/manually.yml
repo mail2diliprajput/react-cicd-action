@@ -24,4 +24,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Print the purpose of run
-        run: echo "Purpose: ${{ inputs.tags }}"
+        run: echo "Purpose: ${{ github.event.inputs.tags }}"
