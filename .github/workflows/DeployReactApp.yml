@@ -79,7 +79,7 @@ jobs:
     name: Manual Approval
     runs-on: ubuntu-latest
     needs: build
-    if: success()  # Only proceed if terraform-plan job succeeds
+    #if: success()  # Only proceed if terraform-plan job succeeds
     permissions:
       issues: write
       pages: write   # to deploy to Pages
