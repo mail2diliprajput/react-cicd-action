@@ -75,11 +75,14 @@ jobs:
           path: dist
 
   deploy:
+    needs: build
     name: Manual Approval
     runs-on: ubuntu-latest
-    needs: build
     environment: Production
-    #if: success()  # Only proceed if terraform-plan job succeeds
+    permissions:
+      pages: write
+      id-token: write
+      issues: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
