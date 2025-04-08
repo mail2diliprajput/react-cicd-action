@@ -77,7 +77,7 @@ jobs:
     name: Manual Approval
     runs-on: ubuntu-latest
     environment:
-      name: dev
+      name: dev-env
       url: ${{ steps.deployment.outputs.page_url }}
     permissions:
       pages: write
